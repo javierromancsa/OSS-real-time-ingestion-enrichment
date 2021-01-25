@@ -15,4 +15,5 @@ This solution will be using Apache Kafka as the primary ingestion plataform. Kaf
 - It's a distributed event streaming platform use by "80% of the Forture 100 companies".
 - It can handle large volumes of data and is a highly reliable system, fault tolerant and scalable.
 - It can handle large real-time data and messages with very low latency.
+
 For near real-time Data Analytics, Adhoc query and data exploration we going to use Azure Data Explorer. For real-time stream processing and ETL KsqlDB and Kafka Connect. 
