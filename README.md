@@ -7,4 +7,4 @@ This reference architecture diagram solved the following use cases:
 	3. Real-time stream processing/ETL (Ksqldb and Kafka connect)
 	4. Operational store integration for web/mobile apps
   
-  ![Diagram](https://github.com/javierromancsa/images/images01.jpg)
+  ![Diagram](https://github.com/javierromancsa/images/images01.JPG)
