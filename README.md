@@ -11,9 +11,9 @@ This reference architecture diagram solved the following use cases:
   ![Architecture](https://github.com/javierromancsa/images/blob/main/images01.JPG)
   
 ## Brief Summary
-This solution will be using Apache Kafka as the primary ingestion plataform. Kafka is becoming very popular in the OSS commnunity becuase of the following properties:
-- Can handle large volumes of data and is a highly reliable system, fault tolerant and scalable.
-- Can handle large real-time data and messages with very low latency.
+This solution will be using Apache Kafka as the primary ingestion plataform. Kafka is becoming the standard technology in the OSS commnunity becuase of the following properties:
 - It's a distributed event streaming use by "80% of the Forture 100 companies".
+- It can handle large volumes of data and is a highly reliable system, fault tolerant and scalable.
+- It can handle large real-time data and messages with very low latency.
 
 For Data Analytics, Adhoc query, data exploration and 
