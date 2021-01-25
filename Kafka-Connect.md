@@ -1,4 +1,4 @@
-## What is Kafka Connect
+## What is Kafka Connect?
 Kafka Connect is a tool for scalably and reliably streaming data between Apache Kafka and other systems. It makes it simple to quickly define connectors that move large collections of data into and out of Kafka. Kafka Connect can ingest entire databases or collect metrics from all your application servers into Kafka topics, making the data available for stream processing with low latency.
 ## Why Kafka Connect?
 Kafka Connect features include:
