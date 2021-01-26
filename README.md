@@ -16,4 +16,6 @@ This solution will be using Apache Kafka as the primary ingestion plataform. Kaf
 - It can handle large volumes of data and is a highly reliable system, fault tolerant and scalable.
 - It can handle large real-time data and messages with very low latency.
 
-For near real-time Data Analytics, Adhoc query and data exploration we going to use Azure Data Explorer. For real-time stream processing and ETL KsqlDB and Kafka Connect. 
+For near real-time Data Analytics, Adhoc query and data exploration we going to use Azure Data Explorer. Azure Data Explorer is a fast, fully managed and highly scalable data analytics database service for near real-time analysis on large(TBs) volumes of heterogeneous data streaming from applications, websites, IoT devices, and more. It natively export Kusto queries that were explored in the Web UI to optimized dashboards.
+
+For real-time data analitycs, stream processing and streaming ETL we are going to use confluent KsqlDB and Kafka Connect. 
