@@ -11,8 +11,8 @@ This reference architecture diagram solved the following use cases:
   ![Architecture](https://github.com/javierromancsa/images/blob/main/images01.JPG)
   
 ## Brief Summary
-This solution will be using Apache Kafka as the primary ingestion plataform. Kafka is becoming the standard technology in the OSS commnunity becuase of the following properties:
-- It's a distributed event streaming platform use by "80% of the Forture 100 companies".
+This solution will be using Apache Kafka as the primary ingestion plataform. Kafka is becoming the de-factor standard technology for event streaming becuase of the following properties:
+- It's an Opensource distributed event streaming platform use by "80% of the Forture 100 companies".
 - It can handle large volumes of data and is a highly reliable system, fault tolerant and scalable.
 - It can handle large real-time data and messages with very low latency.
 
