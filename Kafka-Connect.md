@@ -22,17 +22,17 @@ Kafka Connect features include:
   TBD
 ## Deploy Confluent Kafka Connect:
 
-# copy source charts from Confluent
+### copy source charts from Confluent
 ```
 git clone https://github.com/confluentinc/cp-helm-charts.git
 mkdir myhelmcharts/
 cd myhelmcharts
 cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ myhelmcharts/
 ```
-# Edit the replica count based on the partition in the topic:
+### Edit the replica count to match the numbers of tables/files are going to be source/sink or the number of partitions in the topic:
 `replicaCount: 8`
 
-# Edit the kafka connect properties on the section settings for the worker:
+### Edit the kafka connect properties on the section settings for the worker:
 ```
 configurationOverrides:
 "plugin.path": "/usr/share/java,/usr/share/confluent-hub-components"
@@ -40,16 +40,15 @@ configurationOverrides:
 "value.converter": "org.apache.kafka.connect.json.JsonConverter"
 "key.converter.schemas.enable": "false"
 "value.converter.schemas.enable": "false"
-"internal.key.converter": "org.apache.kafka.connect.json.JsonConverter"
-"internal.value.converter": "org.apache.kafka.connect.json.JsonConverter"
 "config.storage.replication.factor": "3"
 "offset.storage.replication.factor": "3"
 "status.storage.replication.factor": "3"
 "connector.client.config.override.policy" : "All'
 ```
-# For further adjusting the values of the values.YAML on the helm config use this link .
+### For further adjusting the settings of the values.YAML on the helm config use this link:
+https://github.com/confluentinc/cp-helm-charts/tree/master/charts/cp-kafka-connect#kafka-connect-deployment
 
-# For now don't enable prometheus as below:
+### For now don't enable prometheus as below:
 ```
 prometheus:
   ## JMX Exporter Configuration
@@ -57,22 +56,22 @@ prometheus:
   jmx:
     enabled: false
 ```
-# Get kafka brokers hostnames and add them to the kafka section in value.yml as below:
+### Get kafka brokers hostnames and add them to the kafka section in value.yml as below:
 kafka.bootstrapServers = "wn0-jrs02k.qz1stakpznlepcjn2bzi2treqb.cx.internal.cloudapp.net:9092,…"
 
-# Optional way to the get this:
+### Optional way to the get this:
 ```
 export clusterName=
 export password=
 export KAFKABROKERS=$(curl -sS -u admin:$password -G https://$clusterName.azurehdinsight.net/api/v1/clusters/$clusterName/services/KAFKA/components/KAFKA_BROKER | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")' | cut -d',' -f1,2);
 ```
-# In this case we are using HDInsight Kakfka and postgresSQL in AKS:
+### Deploying the helm and checking if is running:
 ```
 helm install test01 myhelmcharts/cp-kafka-connect/
 Kubectl get pods
 kubectl logs test01-cp-kafka-connect-5f8cc6fd-2q292|tail
 ```
-# Getting confluent kafka connect binary: http://packages.confluent.io/archive/5.5/
+### Getting confluent community and use kafka binaries: http://packages.confluent.io/archive/5.5/
 ```
 wget http://packages.confluent.io/archive/5.5/confluent-community-5.5.0-2.12.tar.gz
 tar xzf confluent-community-5.5.0-2.12.tar.gz
@@ -82,7 +81,7 @@ confluent-5.5.0/bin/kafka-console-consumer --topic test01-cp-kafka-connect-confi
 
 sudo nohup kubectl port-forward svc/test01-cp-kafka-connect 803:8083 &
 ```
-# Validate Connector config before creating:
+### Validate Connector config before creating:
 ```
 curl -X PUT http://localhost:803/connector-plugins/JdbcSourceConnector/config/validate -H "Content-Type: application/json" -d '{
        "name":"jdbc_source_postgres_01",
@@ -98,7 +97,7 @@ curl -X PUT http://localhost:803/connector-plugins/JdbcSourceConnector/config/va
        "table.poll.interval.ms": 60000
 }' | json_pp
 ```
-# Create Connector for PostgresSQL using JDBCsourceconnector:
+### Create Connector for PostgresSQL using JDBCsourceconnector in bulk mode:
 ```
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d '{
         "name": "jdbc_source_postgres_01",
@@ -117,12 +116,12 @@ curl -X POST http://localhost:803/connectors -H "Content-Type: application/json"
                 }
         }' | json_pp
 ```
-# Check the topics
+### Check the topics
 ```
 confluent-5.5.0/bin/kafka-console-consumer --topic tblmovies01-movies --bootstrap-server $kafkabrokers
 confluent-5.5.0/bin/kafka-console-consumer --value-deserializer org.apache.kafka.common.serialization.StringDeserializer --key-deserializer org.apache.kafka.common.serialization.StringDeserializer --topic tblmovies01-movies --bootstrap-server $kafkabrokers
 ```
-# Create Connector for PostgresSQL using JDBCsourceconnector:
+### Create Connector for PostgresSQL using JDBCsourceconnector with incrementing mode on 'id' column:
 ```
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d '{
         "name": "jdbc_source_postgres_02",
@@ -142,18 +141,18 @@ curl -X POST http://localhost:803/connectors -H "Content-Type: application/json"
                 }
         }'
 ```
-# Check the topics
+### Check the topics
 `confluent-5.5.0/bin/kafka-console-consumer --topic newtblmovies01-movies --bootstrap-server $kafkabrokers`
 
-# insert records to the movies table
+### insert records to the movies table
 ```
 psql -h 10.5.4.155 -U postgresadmin --password -p 5432 -d postgresdb
 =# INSERT INTO movies(id,title,release_year,unknown_1,country,unknown_2,genres,actors,director,composers,screenwriters,cinematographers,production_companies) VALUES (921,'Diego Book',2020,16,'Puerto Rico',18,'Western','Sambrell','Leone','Morricone','Bertolucci','Colli','Paramount Pictures');
 
 =# INSERT INTO movies(id,title,release_year,unknown_1,country,unknown_2,genres,actors,director,composers,screenwriters,cinematographers,production_companies) VALUES (922,'Javier Book',2020,16,'Puerto Rico',18,'Western','Sambrell','Leone','Morricone','Bertolucci','Colli','Paramount Pictures');
 ```
-# checking kafka-connect properties to validate
+### checking kafka-connect properties to validate
 ```
-kubectl exec -it mytest01-cp-kafka-connect-85855d754c-ddcxk -- sh
+kubectl exec -it test01-cp-kafka-connect-85855d754c-ddcxk -- sh
 cat /etc/kafka-connect/kafka-connect.properties
 ```
