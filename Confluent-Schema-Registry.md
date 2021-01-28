@@ -99,10 +99,10 @@ sudo nohup kubectl port-forward svc/mytest01-cp-kafka-connect 803:8083 &
 ### Create the new connector
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-jdbc-source-bulk-movies-01.json | json_pp
 
-![image](https://github.com/javierromancsa/images/blob/main/images/cp-sch-reg-01.jpg)
+![image](https://github.com/javierromancsa/images/blob/main/cp-sch-reg-01.jpg)
 
 ### let's inspect the _schemas topic:
-![image](~/images/cp-sch-reg-02.png)
+![image](https://github.com/javierromancsa/images/blob/main/cp-sch-reg-02.png)
 ### Why is empty? Because of the way we configure the kafka connector properties:
 ```
 "key.converter": "org.apache.kafka.connect.json.JsonConverter"
@@ -114,21 +114,21 @@ More details in this link https://docs.confluent.io/platform/current/connect/use
 ### lets create a new connector with avro converter by adding the 4 lines of code to a copy of the previous connector config:
 ```
   "key.converter": "io.confluent.connect.avro.AvroConverter",
-  "key.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
+  "key.converter.schemahttps://github.com/javierromancsa/images/blob/main/.registry.url": "http://mytest02-cp-schema-registry:8081",
   "value.converter": "io.confluent.connect.avro.AvroConverter",
   "value.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
 ```
 ### Create the new connector:
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-avro-jdbc-source-bulk-movies-01.json | json_pp
-![image](../images/cp-sch-reg-03.jpg)
+![image](https://github.com/javierromancsa/images/blob/main/cp-sch-reg-03.jpg)
 
 ### Let's inspect the topic "_schema" again:
 confluent-5.5.0/bin/kafka-console-consumer --topic _schemas --bootstrap-server $kafkabrokers --from-beginning --property print.key=true --property key.separator=" : "
-[image](../images/cp-sch-reg-04.png)
+[image](https://github.com/javierromancsa/images/blob/main/cp-sch-reg-04.png)
 
 ### Now inspect the new topic and the previous one:
 ```
 confluent-5.5.0/bin/kafka-avro-console-consumer --topic avro_tblmovies01-movies --bootstrap-server $kafkabrokers --property schema.registry.url=http://10.5.5.82:8081 --property print.key=true --property key.separator=" : " --max-messages 1
 ```
-![image](../images/cp-sch-reg-05.png)
+![image](https://github.com/javierromancsa/images/blob/main/cp-sch-reg-05.png)
 
