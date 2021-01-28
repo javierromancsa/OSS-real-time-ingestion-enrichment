@@ -102,7 +102,7 @@ curl -X POST http://localhost:803/connectors -H "Content-Type: application/json"
 ![image](../images/cp-sch-reg-01.jpg)
 
 ### let's inspect the _schemas topic:
-![image](../images/cp-sch-reg-02.png)
+![image](images/cp-sch-reg-02.png)
 ### Why is empty? Because of the way we configure the kafka connector properties:
 ```
 "key.converter": "org.apache.kafka.connect.json.JsonConverter"
