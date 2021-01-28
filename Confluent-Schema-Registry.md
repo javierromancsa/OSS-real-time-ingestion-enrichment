@@ -99,10 +99,10 @@ sudo nohup kubectl port-forward svc/mytest01-cp-kafka-connect 803:8083 &
 ### Create the new connector
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-jdbc-source-bulk-movies-01.json | json_pp
 
-![image](../../images/cp-sch-reg-01.jpg)
+![image](https://github.com/javierromancsa/images/blob/main/images/cp-sch-reg-01.jpg)
 
 ### let's inspect the _schemas topic:
-![image](images/cp-sch-reg-02.png)
+![image](~/images/cp-sch-reg-02.png)
 ### Why is empty? Because of the way we configure the kafka connector properties:
 ```
 "key.converter": "org.apache.kafka.connect.json.JsonConverter"
