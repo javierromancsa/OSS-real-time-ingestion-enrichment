@@ -36,9 +36,9 @@ If the Schema Registry Security Plugin is installed and configured to use ACLs
 You can, and should, have multiple instances with master.eligibility=true. This doesn't mean you'll have multiple masters, it's just a flag to control whether that instance can become master. The case where you'll want to turn this off is if you have one data center that has your primary cluster, but you want to replicate the same schema data to another data center. In that case, the instances in the secondary data center should use master.eligibility=false since they are only intended to be mirrors.
 
 ### Some key design decisions:
-• Assigns globally unique ID to each registered schema. Allocated IDs are guaranteed to be monotonically increasing but not necessarily consecutive.
-• Kafka provides the durable backend, and functions as a write-ahead changelog for the state of Schema Registry and the schemas it contains.
-• Schema Registry is designed to be distributed, with single-primary architecture, and ZooKeeper/Kafka coordinates primary election (based on the configuration).
+- Assigns globally unique ID to each registered schema. Allocated IDs are guaranteed to be monotonically increasing but not necessarily consecutive.
+- Kafka provides the durable backend, and functions as a write-ahead changelog for the state of Schema Registry and the schemas it contains.
+- Schema Registry is designed to be distributed, with single-primary architecture, and ZooKeeper/Kafka coordinates primary election (based on the configuration).
 
 ### deploying schema registry
 helm install mytest02 myhelmcharts/cp-schema-registry/
@@ -99,10 +99,10 @@ sudo nohup kubectl port-forward svc/mytest01-cp-kafka-connect 803:8083 &
 ### Create the new connector
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-jdbc-source-bulk-movies-01.json | json_pp
 
-[image](../images/cp-sch-reg-01.jpg)
+![image](../images/cp-sch-reg-01.jpg)
 
 ### let's inspect the _schemas topic:
-[image](../images/cp-sch-reg-02.png)
+![image](../images/cp-sch-reg-02.png)
 ### Why is empty? Because of the way we configure the kafka connector properties:
 ```
 "key.converter": "org.apache.kafka.connect.json.JsonConverter"
@@ -120,7 +120,7 @@ More details in this link https://docs.confluent.io/platform/current/connect/use
 ```
 ### Create the new connector:
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-avro-jdbc-source-bulk-movies-01.json | json_pp
-[image](../images/cp-sch-reg-03.jpg)
+![image](../images/cp-sch-reg-03.jpg)
 
 ### Let's inspect the topic "_schema" again:
 confluent-5.5.0/bin/kafka-console-consumer --topic _schemas --bootstrap-server $kafkabrokers --from-beginning --property print.key=true --property key.separator=" : "
@@ -130,7 +130,5 @@ confluent-5.5.0/bin/kafka-console-consumer --topic _schemas --bootstrap-server $
 ```
 confluent-5.5.0/bin/kafka-avro-console-consumer --topic avro_tblmovies01-movies --bootstrap-server $kafkabrokers --property schema.registry.url=http://10.5.5.82:8081 --property print.key=true --property key.separator=" : " --max-messages 1
 ```
-[image](../images/cp-sch-reg-05.png)
-
-
+![image](../images/cp-sch-reg-05.png)
 
