@@ -99,7 +99,7 @@ sudo nohup kubectl port-forward svc/mytest01-cp-kafka-connect 803:8083 &
 ### Create the new connector
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-jdbc-source-bulk-movies-01.json | json_pp
 
-![image](../images/cp-sch-reg-01.jpg)
+![image](../../images/cp-sch-reg-01.jpg)
 
 ### let's inspect the _schemas topic:
 ![image](images/cp-sch-reg-02.png)
