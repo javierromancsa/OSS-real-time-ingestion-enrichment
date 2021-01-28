@@ -13,23 +13,27 @@ metadata:
 spec:
   type: LoadBalancer
 
-#Change/add in values.yaml the "kafka.bootstrapServers":
+### Change/add in values.yaml the "kafka.bootstrapServers":
 kafka.bootstrapServers = "wn0-jrs02k.qz1stakpznlepcjn2bzi2treqb.cx.internal.cloudapp.net:9092,…"
 
-### "schema.compatibility.level default" is backward
+### Other Properties:
+"schema.compatibility.level default" is backward
 
-### Is the host.name parameter set? Yes, It should be set when you're running Schema Registry with multiple nodes. Value is advertised in ZooKeeper. In this helm config is the cluster IP. 
+Is the host.name parameter set? Yes, It should be set when you're running Schema Registry with multiple nodes. Value is advertised in ZooKeeper. In this helm config is the cluster IP. 
 
-### For further changes to the config you use these, link01 and link02 and link03
+### For further changes to the config you use these the following links:
+https://github.com/confluentinc/cp-helm-charts/tree/master/charts/cp-schema-registry#configuration
+https://docs.confluent.io/platform/current/schema-registry/installation/config.html
+https://docs.confluent.io/platform/current/schema-registry/installation/deployment.html#running-sr-in-production
 
 ### Change/add in values.yaml the replicaCount to at least 2 based on info below:
-"A simple setup with just a few nodes means Schema Registry can fail over easily with a simple multi-node deployment and single primary election protocol." For leader election, use kafkastore.bootstrap.servers instead of kafkastore.connection.url. 
+"A simple setup with just a few nodes means Schema Registry can fail over easily with a simple multi-node deployment and single primary election protocol." For leader election, use kafkastore.bootstrap.servers instead of kafkastore.connection.url."
 
-### If the Schema Registry Security Plugin is installed and configured to use ACLs, it must connect to ZooKeeper and will use kafkastore.connection.url to do so.
+If the Schema Registry Security Plugin is installed and configured to use ACLs, it must connect to ZooKeeper and will use kafkastore.connection.url to do so.
 
-### You can, and should, have multiple instances with master.eligibility=true. This doesn't mean you'll have multiple masters, it's just a flag to control whether that instance can become master. The case where you'll want to turn this off is if you have one data center that has your primary cluster, but you want to replicate the same schema data to another data center. In that case, the instances in the secondary data center should use master.eligibility=false since they are only intended to be mirrors.
+You can, and should, have multiple instances with master.eligibility=true. This doesn't mean you'll have multiple masters, it's just a flag to control whether that instance can become master. The case where you'll want to turn this off is if you have one data center that has your primary cluster, but you want to replicate the same schema data to another data center. In that case, the instances in the secondary data center should use master.eligibility=false since they are only intended to be mirrors.
 
-Some key design decisions:
+### Some key design decisions:
 • Assigns globally unique ID to each registered schema. Allocated IDs are guaranteed to be monotonically increasing but not necessarily consecutive.
 • Kafka provides the durable backend, and functions as a write-ahead changelog for the state of Schema Registry and the schemas it contains.
 • Schema Registry is designed to be distributed, with single-primary architecture, and ZooKeeper/Kafka coordinates primary election (based on the configuration).
@@ -86,14 +90,15 @@ helm install test03 myhelmcharts/cp-kafka-connnect/
 ### Start the port-forwarding:
 sudo nohup kubectl port-forward svc/test01-cp-kafka-connect 803:8083 &
 
-### Create the new connector:
+### Create the new connector
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-jdbc-source-bulk-movies-01.json | json_pp
+
 -------------------------------------------
 
 
 ### let's inspect the _schemas topic:
 
-Why is empty?
+### Why is empty?
 Because of the way we configure the kafka connector properties:
 "key.converter": "org.apache.kafka.connect.json.JsonConverter"
 "value.converter": "org.apache.kafka.connect.json.JsonConverter"
