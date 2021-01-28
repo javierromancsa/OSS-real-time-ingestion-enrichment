@@ -120,11 +120,13 @@ More details in this link https://docs.confluent.io/platform/current/connect/use
 ```
 ### Create the new connector:
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-avro-jdbc-source-bulk-movies-01.json | json_pp
+
 ![image](https://github.com/javierromancsa/images/blob/main/cp-sch-reg-03.jpg)
 
 ### Let's inspect the topic "_schema" again:
 confluent-5.5.0/bin/kafka-console-consumer --topic _schemas --bootstrap-server $kafkabrokers --from-beginning --property print.key=true --property key.separator=" : "
-[image](https://github.com/javierromancsa/images/blob/main/cp-sch-reg-04.png)
+
+![image](https://github.com/javierromancsa/images/blob/main/cp-sch-reg-04.png)
 
 ### Now inspect the new topic and the previous one:
 ```
