@@ -5,6 +5,7 @@ It provides a RESTful interface for storing and retrieving your Avro, JSON Schem
 cp -R ~/cp-helm-charts/charts/cp-schema-registry/ myhelmcharts/
 
 ### Change the service.yaml for the cp-schema-registry helm config to use internal Azure internal loadbalancer
+```json
 kind: Service
 metadata:
   annotations:
@@ -12,10 +13,11 @@ metadata:
 
 spec:
   type: LoadBalancer
-
+```
 ### Change/add in values.yaml the "kafka.bootstrapServers":
+```
 kafka.bootstrapServers = "wn0-jrs02k.qz1stakpznlepcjn2bzi2treqb.cx.internal.cloudapp.net:9092,…"
-
+```
 ### Other Properties:
 "schema.compatibility.level default" is backward
 
@@ -39,7 +41,7 @@ You can, and should, have multiple instances with master.eligibility=true. This
 • Schema Registry is designed to be distributed, with single-primary architecture, and ZooKeeper/Kafka coordinates primary election (based on the configuration).
 
 ### deploying schema registry
-helm install test02 myhelmcharts/cp-schema-registry/
+helm install mytest02 myhelmcharts/cp-schema-registry/
 
 ### glanced of the logs at one of the pods:
 HOSTNAME=mytest02-cp-schema-registry-7975bb8466-nrrbt
@@ -63,11 +65,12 @@ host.name=10.5.4.103
 groupid=schema01
 
 ### Add the name of the schema registry k8s service on the values.yaml of the cp-kafka-connect helm.
+```
 cp-schema-registry:
-url: "http://test02-cp-schema-registry:8081"
-
+url: "http://mytest02-cp-schema-registry:8081"
+```
 ### deploy the new kafka connect:
-helm install test03 myhelmcharts/cp-kafka-connnect/
+helm install mytest03 myhelmcharts/cp-kafka-connnect/
 
 ### Create a file simple-jdbc-source-bulk-movies-01.json with the following: 
 {
@@ -75,8 +78,8 @@ helm install test03 myhelmcharts/cp-kafka-connnect/
         "config": {
                 "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
                 "connection.url": "jdbc:postgresql://postgres2:5432/postgresdb",
-                "connection.user": "postgresadmin",
-                "connection.password": "admin123",
+                "connection.user": "",
+                "connection.password": "",
                 "topic.prefix": "tblmovies01-",
                 "tasks.max": 1,
                 "mode": "bulk",
@@ -88,16 +91,15 @@ helm install test03 myhelmcharts/cp-kafka-connnect/
 }
 
 ### Start the port-forwarding:
-sudo nohup kubectl port-forward svc/test01-cp-kafka-connect 803:8083 &
+sudo nohup kubectl port-forward svc/mytest01-cp-kafka-connect 803:8083 &
 
 ### Create the new connector
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-jdbc-source-bulk-movies-01.json | json_pp
 
--------------------------------------------
-
+[](../images/cp-sch-reg-01.jpg)
 
 ### let's inspect the _schemas topic:
-
+[](../images/cp-sch-reg-02.png)
 ### Why is empty?
 Because of the way we configure the kafka connector properties:
 "key.converter": "org.apache.kafka.connect.json.JsonConverter"
@@ -107,21 +109,21 @@ More details in this link
 
 ### lets create a new connector with avro converter by adding the 4 lines of code to a copy of the previous connector config:
   "key.converter": "io.confluent.connect.avro.AvroConverter",
-  "key.converter.schema.registry.url": "http://test02-cp-schema-registry:8081",
+  "key.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
   "value.converter": "io.confluent.connect.avro.AvroConverter",
-  "value.converter.schema.registry.url": "http://test02-cp-schema-registry:8081",
+  "value.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
 
 ### Create the new connector:
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-avro-jdbc-source-bulk-movies-01.json | json_pp
-
+[](../images/cp-sch-reg-03.jpg)
 
 ### Let's inspect the topic "_schema" again:
 confluent-5.5.0/bin/kafka-console-consumer --topic _schemas --bootstrap-server $kafkabrokers --from-beginning --property print.key=true --property key.separator=" : "
-
+[](../images/cp-sch-reg-04.png)
 
 ### Now inspect the new topic and the previous one:
 confluent-5.5.0/bin/kafka-avro-console-consumer --topic avro_tblmovies01-movies --bootstrap-server $kafkabrokers --property schema.registry.url=http://10.5.5.82:8081 --property print.key=true --property key.separator=" : " --max-messages 1
-
+[](../images/cp-sch-reg-05.png)
 
 
 
