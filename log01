@@ -1,0 +1,64 @@
+[2021-01-29 12:52:32,755] INFO Kafka version: 5.5.0-ccs (org.apache.kafka.common.utils.AppInfoParser)
+[2021-01-29 12:52:32,756] INFO Kafka commitId: 606822a624024828 (org.apache.kafka.common.utils.AppInfoParser)
+[2021-01-29 12:52:32,756] INFO Kafka startTimeMs: 1611924752755 (org.apache.kafka.common.utils.AppInfoParser)
+[2021-01-29 12:52:32,765] INFO [Worker clientId=connect-1, groupId=first-kusto-sink] Finished starting connectors and tasks (org.apache.kafka.connect.runtime
+.distributed.DistributedHerder)
+[2021-01-29 12:52:32,777] INFO [Producer clientId=connector-dlq-producer-KustoSinkConnector05-4] Cluster ID: foI2qg79QcmbCpGBLE5R2w (org.apache.kafka.clients
+.Metadata)
+[2021-01-29 12:52:32,791] INFO [Consumer clientId=connector-consumer-KustoSinkConnector05-4, groupId=connect-KustoSinkConnector05] Subscribed to topic(s): av
+ro_movie_ratings (org.apache.kafka.clients.consumer.KafkaConsumer)
+[2021-01-29 12:52:32,792] INFO KustoSinkConfig values: 
+        aad.auth.appid = 0d30f1d1-3b33-4747-ae10-b8a8506fe8fa
+        aad.auth.appkey = [hidden]
+        aad.auth.authority = 72f988bf-86f1-41af-91ab-2d7cd011db47
+        behavior.on.error = fail
+        errors.retry.backoff.time.ms = 10000
+        errors.retry.max.time.ms = 300000
+        flush.interval.ms = 300000
+        flush.size.bytes = 1048576
+        kusto.ingestion.url = https://private-ingest-jrsadx.eastus2.kusto.windows.net
+        kusto.query.url = https://private-jrsadx.eastus2.kusto.windows.net
+        kusto.query.url = https://private-jrsadx.eastus2.kusto.windows.net
+        kusto.tables.topics.mapping = [{'topic': 'avro_movie_ratings','db': 'movies', 'table': 'movies_ratings','format': 'avro', 'mapping':'movies_ratings_m
+apping'}]
+        misc.deadletterqueue.bootstrap.servers = []
+        misc.deadletterqueue.topic.name = 
+        tempdir.path = /tmp
+ (com.microsoft.azure.kusto.kafka.connect.sink.KustoSinkConfig)
+[2021-01-29 12:52:32,845] INFO [Correlation ID: 1dc2a9f6-336b-461f-813f-0cebce75c6e0] Instance discovery was successful (com.microsoft.aad.adal4j.Authenticat
+ionAuthority)
+[2021-01-29 12:52:33,597] WARN User might have ingestor privileges, table validation will be skipped for all table mappings  (com.microsoft.azure.kusto.kafka
+.connect.sink.KustoSinkTask)
+[2021-01-29 12:52:33,605] INFO Creating a new IngestClient (com.microsoft.azure.kusto.ingest.IngestClientImpl)
+[2021-01-29 12:52:33,610] INFO Started KustoSinkTask with target cluster: (https://private-ingest-jrsadx.eastus2.kusto.windows.net), source topics: ([avro_mo
+vie_ratings]) (com.microsoft.azure.kusto.kafka.connect.sink.KustoSinkTask)
+[2021-01-29 12:52:33,610] INFO WorkerSinkTask{id=KustoSinkConnector05-4} Sink task finished initialization and start (org.apache.kafka.connect.runtime.Worker
+SinkTask)
+[2021-01-29 12:52:33,619] INFO Refreshing Ingestion Auth Token (com.microsoft.azure.kusto.ingest.ResourceManager)
+[2021-01-29 12:52:33,622] INFO [Correlation ID: 17fedb8c-b3b7-412a-9a04-5e555da62ba6] Instance discovery was successful (com.microsoft.aad.adal4j.Authenticat
+ionAuthority)
+[2021-01-29 12:52:33,627] INFO [Consumer clientId=connector-consumer-KustoSinkConnector05-4, groupId=connect-KustoSinkConnector05] Cluster ID: foI2qg79QcmbCp
+GBLE5R2w (org.apache.kafka.clients.Metadata)
+[2021-01-29 12:52:33,629] INFO [Consumer clientId=connector-consumer-KustoSinkConnector05-4, groupId=connect-KustoSinkConnector05] Discovered group coordinat
+or wn0-jrs02k.qz1stakpznlepcjn2bzi2treqb.cx.internal.cloudapp.net:9092 (id: 2147482645 rack: null) (org.apache.kafka.clients.consumer.internals.AbstractCoord
+inator)
+[2021-01-29 12:52:33,633] INFO [Consumer clientId=connector-consumer-KustoSinkConnector05-4, groupId=connect-KustoSinkConnector05] (Re-)joining group (org.ap
+ache.kafka.clients.consumer.internals.AbstractCoordinator)
+[2021-01-29 12:52:33,850] INFO Refreshing Ingestion Resources (com.microsoft.azure.kusto.ingest.ResourceManager)
+[2021-01-29 12:52:40,040] INFO [Consumer clientId=connector-consumer-KustoSinkConnector05-4, groupId=connect-KustoSinkConnector05] Successfully joined group 
+with generation 1 (org.apache.kafka.clients.consumer.internals.AbstractCoordinator)
+[2021-01-29 12:52:40,043] INFO [Consumer clientId=connector-consumer-KustoSinkConnector05-4, groupId=connect-KustoSinkConnector05] Adding newly assigned part
+itions: avro_movie_ratings-4 (org.apache.kafka.clients.consumer.internals.ConsumerCoordinator)
+[2021-01-29 12:52:40,046] INFO [Consumer clientId=connector-consumer-KustoSinkConnector05-4, groupId=connect-KustoSinkConnector05] Found no committed offset 
+for partition avro_movie_ratings-4 (org.apache.kafka.clients.consumer.internals.ConsumerCoordinator)
+[2021-01-29 12:52:40,050] INFO [Consumer clientId=connector-consumer-KustoSinkConnector05-4, groupId=connect-KustoSinkConnector05] Resetting offset for parti
+tion avro_movie_ratings-4 to offset 0. (org.apache.kafka.clients.consumer.internals.SubscriptionState)
+[2021-01-29 12:52:40,197] INFO AvroDataConfig values: 
+        connect.meta.data = true
+        enhanced.avro.schema.support = false
+        schemas.cache.config = 50
+ (io.confluent.connect.avro.AvroDataConfig)
+[2021-01-29 12:57:40,657] INFO Kusto ingestion: file (/tmp/kusto-sink-connector-76b0fc2e-fa9d-47e8-89d1-0774203fb1af/kafka_avro_movie_ratings_4_339.avro.gz) 
+of size (17268) at current offset (650) (com.microsoft.azure.kusto.kafka.connect.sink.TopicPartitionWriter)
+[2021-01-29 12:58:32,764] INFO WorkerSinkTask{id=KustoSinkConnector05-4} Committing offsets asynchronously using sequence number 6: {avro_movie_ratings-4=Off
+setAndMetadata{offset=651, leaderEpoch=null, metadata=''}} (org.apache.kafka.connect.runtime.WorkerSinkTask)
