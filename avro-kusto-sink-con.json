@@ -1,0 +1,29 @@
+{
+
+    "name": "KustoSinkConnector05",
+
+    "config": {
+
+                    "connector.class": "com.microsoft.azure.kusto.kafka.connect.sink.KustoSinkConnector",
+
+                    "kusto.sink.flush_interval_ms ": "10000 ",
+                    "errors.log.enable" : "true",
+                    "behavior.on.error" : "fail",
+                    "key.converter": "org.apache.kafka.connect.storage.StringConverter" ,
+                    "value.converter": "io.confluent.connect.avro.AvroConverter",
+                    "value.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
+                    "errors.deadletterqueue.topic.name":"dlq_movie_ratings",
+                    "errors.log.include.messages": "true",
+                    "kusto.tables.topics.mapping": "[{'topic': 'avro_movie_ratings','db': 'movies', 'table': 'movies_ratings','format': 'avro', 'mapping':'movies_ratings_mapping'}]",
+                    "aad.auth.authority": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+                    "kusto.ingestion.url": "https://private-ingest-jrsadx.eastus2.kusto.windows.net",
+                    "kusto.query.url": "https://private-jrsadx.eastus2.kusto.windows.net",
+                    "aad.auth.appid": "0d30f1d1-3b33-4747-ae10-b8a8506fe8fa",
+                    "aad.auth.appkey": "hidden",
+                    "kusto.sink.tempdir": "/var/tmp/",
+                    "kusto.sink.flush_size": "10000000",
+                    "topics": "avro_movie_ratings",
+                    "tasks.max": 8
+            }
+
+    }
