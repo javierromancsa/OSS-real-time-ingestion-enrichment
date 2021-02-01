@@ -8,7 +8,7 @@ Confluent KsqlDB is the streaming SQL engine that enables real-time data process
 
 ## Run Ksqldb CLI 
 confluent-5.5.0/bin/ksql http://10.5.5.83:8088
-![diagram](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-01.pgn)
+![diagram](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-01.png)
 
 ## Creating my first stream
 ```
