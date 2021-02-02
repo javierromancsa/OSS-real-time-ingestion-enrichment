@@ -5,6 +5,41 @@ Confluent KsqlDB is the streaming SQL engine that enables real-time data process
 
 ## Why KsqlDB in Azure?
 
+## Deploying the KsqlDB server with interactive mode and with an internal azure loadbalancer:
+In values.yaml changes to the folowing:
+```
+## External Access
+## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
+external:
+enabled: false
+type: LoadBalancer
+externalTrafficPolicy: Cluster
+port: 8088
+
+## Headless mode
+## ref: https://docs.confluent.io/current/ksql/docs/installation/server-config/index.html
+ksql:
+headless: false
+```
+Also add your respective brokers, schema registry url, replica count and jmx:
+```
+replicaCount: 3
+prometheus:
+  jmx:
+    enabled: false
+kafka:
+  bootstrapServers: "wn2-jrs02k.qz1stakpznlepcjn2bzi2treqb.cx.internal.cloudapp.net:9092,wn1-jrs02k.qz1stakpznlepcjn2bzi2treqb.cx.internal.cloudapp.net:9092, wn0-jrs02k.qz1stakpznlepcjn2bzi2treqb.cx.internal.cloudapp.net:9092"
+cp-schema-registry:
+  url: "http://mytest02-cp-schema-registry:8081"
+```
+In template/service.yaml you have add the internal loadbalancer annotation:
+```
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+```
+Then we execute the helm:
+```helm install ksqldb01 myhelmcharts/cp-ksql-server/```
+![diagram](https://github.com/javierromancsa/images/blob/main/ksqldb01-service.png, https://github.com/javierromancsa/images/blob/main/ksqldb01-pods.png)
 
 ## Run Ksqldb CLI 
 confluent-5.5.0/bin/ksql http://10.5.5.83:8088
