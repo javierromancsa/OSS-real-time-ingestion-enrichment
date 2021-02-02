@@ -20,4 +20,34 @@ CREATE STREAM movies_src_json (id BIGINT, title VARCHAR, release_year INT, unkno
 ```
 CREATE STREAM movies_src WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='avro_tblmovies01-movies');
 ```
-## Next we need to make sure that each record from this stream is identifiable (or partition by) using a field that is unique. Think of this as if it was a primary key for a SQL database, not the same but it will help you choose a field that at least is fit. In order to do this, we need to rekey this stream and take only the fields you want to use:
+## Re-KEY
+Next we need to make sure that each record from this stream is identifiable (or partition by) using a field that is unique. Think of this as if it was a primary key for a SQL database, not the same but it will help you choose a field that at least is fit. In order to do this, we need to rekey this stream and take only the fields you want to use:
+```
+CREATE STREAM movies_brief WITH (PARTITIONS=8) AS SELECT id movie_id, title, release_year FROM movies_src PARTITION BY id;
+```
+![diagram](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-03.png)
+
+## Checking the stream
+```
+SELECT * FROM movies_brief where rowkey=63 emit changes;
+```
+![diagram](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-04.png)
+
+As you can see the stream is always adding records and these records are inmutable. Each record created has his KEY aligned to the value of the movie_id. It is also important to consider how are we pulling from the source, since we are constantly (every 60 secs) using the bulk mode to pull the whole table in kafka connect, the same movie is been duplicated. The Rowtime is what lets us know they are different records.
+
+## Now that you have a stream with each of its records partitioned by the movie_id field, we can finally create our table. 
+```
+CREATE TABLE tbl_movies (ROWKEY INTEGER KEY) WITH ( VALUE_FORMAT='avro',KAFKA_TOPIC='MOVIES_BRIEF', KEY='movie_id');
+```
+![diagram](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-05.png)
+We still see duplicated records but that because we are pulling constantly and we are updating every 60 seconds. If I pause the connector i will only see one record with that rowkey(remember to reset the offset ```SET 'auto.offset.reset' = 'earliest';```)
+
+## Let's review what we have done with 3 command lines:
+![diagram](https://github.com/javierromancsa/images/blob/main/ksqldb-pipelines.jpg)
+### You just built in a matter of minutes a fairly complicated ETL pipeline in which data is being transferred from a input topic to a series of pipes that are changing the nature of the data (re-keying in this case) and finally creating a table where data is always up-to-date and with the fields you need in order to use.
+
+## Below is an example of a materialized table. This table let you do a pull query instead of push query(you need "emit changes" at the end).
+```
+CREATE table movies_count AS SELECT movie_id, count(movie_id) x_times FROM movies_brief group by movie_id;
+```
+![diagram](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-06.png)
