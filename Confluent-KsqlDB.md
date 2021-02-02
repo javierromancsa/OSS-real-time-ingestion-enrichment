@@ -39,7 +39,9 @@ In template/service.yaml you have add the internal loadbalancer annotation:
 ```
 Then we execute the helm:
 ```helm install ksqldb01 myhelmcharts/cp-ksql-server/```
+kubectl get services
 ![kubectl get services](https://github.com/javierromancsa/images/blob/main/ksqldb01-service.JPG) 
+kubectl get pods
 ![kubectl get pods](https://github.com/javierromancsa/images/blob/main/ksqldb01-pods.JPG)
 
 ## Run Ksqldb CLI 
