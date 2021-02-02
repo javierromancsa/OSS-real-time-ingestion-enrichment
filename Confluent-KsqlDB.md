@@ -43,7 +43,7 @@ CREATE TABLE tbl_movies (ROWKEY INTEGER KEY) WITH ( VALUE_FORMAT='avro',KAFKA_TO
 We still see duplicated records but that because we are pulling constantly and we are updating every 60 seconds. If I pause the connector i will only see one record with that rowkey(remember to reset the offset ```SET 'auto.offset.reset' = 'earliest';```)
 
 ## Let's review what we have done with 3 command lines:
-![diagram](https://github.com/javierromancsa/images/blob/main/ksqldb-pipelines.jpg)
+![diagram](https://github.com/javierromancsa/images/blob/main/ksqldb-pipelines.JPG)
 ### You just built in a matter of minutes a fairly complicated ETL pipeline in which data is being transferred from a input topic to a series of pipes that are changing the nature of the data (re-keying in this case) and finally creating a table where data is always up-to-date and with the fields you need in order to use.
 
 ## Below is an example of a materialized table. This table let you do a pull query instead of push query(you need "emit changes" at the end).
