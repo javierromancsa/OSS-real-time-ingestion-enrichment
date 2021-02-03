@@ -1,0 +1,17 @@
+```json
+"OperationId": 5c5184d2-8f57-4dc2-bc2d-0cde561e2d54,
+"Database": movies,
+"Table": movies_ratings,
+"FailedOn": 2021-02-03T17:36:22.8831496Z,
+"IngestionSourcePath": MULTIPLE_SOURCES. Examples: https://mv3kstrldjrsadx01.blob.core.windows.net/20210203-ingestdata-e5c334ee145d4b43a3a2d3a96fbac1df-0/movies__movies_ratings__1a24be1a-4fff-42ca-822d-f8bf1080c205__kafka_avro_movie_ratings_1_706.avro.gz.avro.gz,https://mv3kstrldjrsadx01.blob.core.windows.net/20210203-ingestdata-e5c334ee145d4b43a3a2d3a96fbac1df-0/movies__movies_ratings__e8d437ff-734d-44ac-9d80-eda0c2260e19__kafka_avro_movie_ratings_5_747.avro.gz.avro.gz,https://mv3kstrldjrsadx01.blob.core.windows.net/20210203-ingestdata-e5c334ee145d4b43a3a2d3a96fbac1df-0/movies__movies_ratings__cafd1de3-2fd5-4b22-8061-3401d6a4b764__kafka_avro_movie_ratings_0_709.avro.gz.avro.gz,
+"Details": General_InternalServerError: Seek is only supported with SeekOrigin.Begin,
+"FailureKind": Transient,
+"RootActivityId": 9374d43f-fcd1-4b92-9b57-6ba77496b541,
+"OperationKind": DataIngestPull,
+"OriginatesFromUpdatePolicy": 0,
+"ErrorCode": General_InternalServerError,
+"Principal": aadapp=d38bcecc-105f-45ea-b8e8-bf799aac8165;33e01921-4d64-4f8c-a055-5bdaffd5e33d,
+"ShouldRetry": 1,
+"User": ,
+"IngestionProperties": [Format=Avro/mandatory, IngestionMapping=[{"column":"TITLE","datatype":"STRING","Path":"$.TITLE"},{"column":"AVG_RATINGS","datatype":"decimal","Path":"$.AVG_RATINGS"},{"column":"SUM_RATING","datatype":"decimal","Path":"$.SUM_RATING"}], ValidationPolicy=[Options=ValidateCsvInputConstantColumns, Implications=BestEffort, IsDetailedErrorReportingEnabled=False], Tags=[ToStringEmpty], IngestIfNotExists=[ToStringEmpty], ZipPattern=[null]],
+```
