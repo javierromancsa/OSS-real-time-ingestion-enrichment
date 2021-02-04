@@ -1,1 +1,1 @@
-# Azure Functions and KUDA
+# Azure Functions and KEDA
