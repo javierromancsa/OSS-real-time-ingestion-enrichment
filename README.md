@@ -8,7 +8,7 @@ This reference architecture diagram solved the following use cases:
 3. Real-time action/alerts/downstream feed
 4. Operational store integration for web/mobile apps
 
-  ![Architecture](https://github.com/javierromancsa/images/blob/main/oss-realtime-ingestion-enrichment.PNG)
+  ![Architecture](https://github.com/javierromancsa/images/blob/main/ADX-UsagePatterns-v1.gif)
   
 ## Brief Summary
 This solution will be using Apache Kafka as the primary ingestion plataform. Kafka is becoming the de-factor standard technology for event streaming becuase of the following properties:
