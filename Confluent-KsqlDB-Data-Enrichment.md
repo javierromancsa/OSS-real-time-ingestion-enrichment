@@ -1,4 +1,4 @@
-## KsqlDB a Streaming Database to Enrich Fata on the Fly
+## KsqlDB a Streaming Database to Enrich Data on the Fly
 The simplicity and mundanity of using a declarative language like SQL to replace 25 to 50 lines of code in Kafka Streams or in other stream processing system in the data world is a very significant advantage. On top of that the fact that you’re doing most if not all the processing at upstream it makes this technology even more appealing to others services and use cases.
 ### Points when KsqlDB shine:
 - Since each transformation does not destroy the original data but creates new data in new topics by default, we can keep enriching new data (via JOINs) out of intermediate transformations easily using SQL queries.
