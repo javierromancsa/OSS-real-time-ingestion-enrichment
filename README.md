@@ -24,3 +24,4 @@ For real-time stream processing and streaming ETL we are going to use confluent 
 - [Kafka Connect](Kafka-Connect.md) 
 - [Confluent Schema Registry](Confluent-Schema-Registry.md)
 - [Confluent KsqlDB](Confluent-KsqlDB.md)
+- [Confluent KsqlDB in Action](Confluent-KsqlDB-Data-Enrichment.md)
