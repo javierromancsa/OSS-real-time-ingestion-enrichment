@@ -12,7 +12,7 @@ The simplicity and mundanity of using a declarative language like SQL to replace
 cat ~/demo-scene/streams-movie-demo/data/ratings-json.js | ~/confluent-5.5.0/bin/kafka-avro-console-producer --property schema.registry.url=http://10.5.5.82:8081 --property value.schema.file=kafka-workshop/rating-raw.avsc --topic avro-ratings --bootstrap-server $kafkabrokers
 ```
 And schema registry creates a new subject and version for it:
-![pic]()
+![pic](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-action-01.png)
 In KsqlDB cli:
 ```
 CREATE STREAM ratings WITH (VALUE_FORMAT='AVRO', KAFKA_TOPIC='avro-ratings');
@@ -20,15 +20,15 @@ SET 'auto.offset.reset' = 'earliest';
 select * from ratings where movie id=l emit changes limit 1;
 describe extended ratings;
 ```
-![pic]()
-![pic]()
+![pic](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-action-02.png)
+![pic](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-action-03.png)
 
 ## Now that we have rating we can create a materialize view doing a join between movies and ratings:
 ```
 CREATE TABLE tbl_movie_ratings AS SELECT m.title, AVG(r.rating) AS avg_ratings, SUM(r.rating) AS sum_rating FROM ratings r LEFT OUTER JOIN tbl_movies m ON m.movie_id = r.movie_id GROUP BY m.title ;
 select * from movie_ratings where Title ='Antz';
 ```
-![pic]()
+![pic](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-action-05.png)
 
 ## With this event streaming enrich table you can query the table with CLI or do REST API calls and is always updated:
 Ksqldb cli  query:
@@ -36,11 +36,11 @@ Ksqldb cli  query:
 select title, avg_ratings from tbl_movie_ratings where avg_ratings >= 8.5 emit changes;
 ```
 
-![pic]()
+![pic](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-action-06.PNG)
 
 REST API call:
 ```
 curl -X "POST" "http://10.5.5.83:8088/query" -H "Accept: application/vnd.ksql.v1+json" -H"Content-Type: application/json" -d $'{ "ksql": "select title, avg_ratings from tbl_movie_ratings where avg_ratings >= 8.5 emit changes;", "streamsProperties": {} }'
 ```
-![pic]()
+![pic](https://github.com/javierromancsa/images/blob/main/cp-ksqldb-action-07.PNG)
 
