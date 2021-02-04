@@ -3,10 +3,10 @@ This repository is to enable and facilitate the deployment in Azure of a full st
 
 This reference architecture diagram solved the following use cases:
 
-1. [Real-time data analytics, dashboards and adhoc query](https://github.com/javierromancsa/images/blob/main/oss-usecase-01.PNG) 
-2. [Real-time stream processing/ETL (Ksqldb and Kafka connect)](https://github.com/javierromancsa/images/blob/main/oss-usecase-02.PNG)
-3. [Real-time action/alerts/downstream feed](https://github.com/javierromancsa/images/blob/main/oss-usecase-03.PNG)
-4. [Operational store integration for web/mobile apps](https://github.com/javierromancsa/images/blob/main/oss-usecase-04.PNG)
+1. [Real-time data analytics, dashboards and adhoc query](oss-usecase-01.md) 
+2. [Real-time stream processing/ETL (Ksqldb and Kafka connect)](oss-usecase-02.md)
+3. [Real-time action/alerts/downstream feed](oss-usecase-03.md)
+4. [Operational store integration for web/mobile apps](oss-usecase-04.md)
 
   ![Architecture](https://github.com/javierromancsa/images/blob/main/ADX-UsagePatterns-v1.gif)
   
