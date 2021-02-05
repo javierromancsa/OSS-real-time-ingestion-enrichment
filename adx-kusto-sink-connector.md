@@ -8,4 +8,7 @@ A fast and highly scalable data exploration service for log and telemetry data. 
 - Provides the ability to build and deploy exactly what you need by combining with other services to supply an encompassing, powerful, and interactive data analytics solution.
 
 ## Deploying Azure Explorer and Creating DB with target tables
-
+```
+az group create --name <resource-group-name> --location <resource-group-location> #use this command when you need to create a new resource group for your deployment
+az group deployment create --resource-group <my-resource-group> --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-kusto-vnet/azuredeploy.json --parameters-uri https://raw.githubusercontent.com//azuredeploy.parameters.json
+```
