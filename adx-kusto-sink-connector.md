@@ -9,8 +9,8 @@ A fast and highly scalable data exploration service for log and telemetry data. 
 
 ## Deploying Azure Explorer and Creating DB with target tables
 Using the following template https://azure.microsoft.com/en-us/resources/templates/101-kusto-vnet/
-And using this parameter file as example or "as is" for testing purposes 
+And using this parameter file as example or "as is" for testing purposes https://raw.githubusercontent.com/javierromancsa/OSS-real-time-ingestion-enrichment/main/azuredeploy.parameters.json
 ```
 az group create --name <resource-group-name> --location <resource-group-location> #use this command when you need to create a new resource group for your deployment
-az group deployment create --resource-group <my-resource-group> --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-kusto-vnet/azuredeploy.json --parameters-uri https://raw.githubusercontent.com//azuredeploy.parameters.json
+az group deployment create --resource-group <my-resource-group> --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-kusto-vnet/azuredeploy.json --parameters https://raw.githubusercontent.com/javierromancsa/OSS-real-time-ingestion-enrichment/main/azuredeploy.parameters.json
 ```
