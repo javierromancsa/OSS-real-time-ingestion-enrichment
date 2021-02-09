@@ -151,7 +151,7 @@ psql -h 10.5.4.155 -U postgresadmin --password -p 5432 -d postgresdb
 
 =# INSERT INTO movies(id,title,release_year,unknown_1,country,unknown_2,genres,actors,director,composers,screenwriters,cinematographers,production_companies) VALUES (922,'Javier Book',2020,16,'Puerto Rico',18,'Western','Sambrell','Leone','Morricone','Bertolucci','Colli','Paramount Pictures');
 ```
-### checking kafka-connect properties to validate
+### In case you want to check any configuration setting on the kafka-connect properties you can exectute similiar commands:
 ```
 kubectl exec -it test01-cp-kafka-connect-85855d754c-ddcxk -- sh
 cat /etc/kafka-connect/kafka-connect.properties
