@@ -49,7 +49,7 @@ az acr build --registry jrsacr --image myadx-kafka-connect:v1 -f custom-build-im
 
 ### Create the Helm for ADX kafka connector:
 cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ myhelmcharts/adx-cp-kafka-connect/
-
+![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-01.png)
 
 ### Edit the replica count based on the partition in the topic:
 ```
@@ -102,12 +102,12 @@ cp-schema-registry:
 ```
 ### Helm deploy kafka connector
 helm install kusto-sink myhelmcharts/adx-cp-kafka-connect/
-
+![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-02.png)
 
 ### start forwarding and check the plugin is available:
 sudo nohup kubectl port-forward svc/kusto-sink-cp-kafka-connect 8084:8083 &
 
-
+![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-03.png)
 
 
 ### Create the kusto sink connector:
@@ -135,13 +135,15 @@ sudo nohup kubectl port-forward svc/kusto-sink-cp-kafka-connect 8084:8083 &
 ### Execute the creation:
 curl -X POST http://localhost:8084/connectors -H "Content-Type: application/json" -d @simple-json-kusto-sink-movies-01.json 
 
-#Edit config to enable log and dead letter queues
+![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-04.png)
+
+### Edit config to enable log and dead letter queues
 "errors.log.enable" : "true",
 "behavior.on.error" :"log",
 "errors.deadletterqueue.topic.name":"dlq_json_movie_ratings",
 "errors.log.include.messages": "true",
 
-#Also we need to changes the key converter, because record/movie Spiderman has a String with "(" which break the format:
+### Also we need to changes the key converter, because record/movie Spiderman has a String with "(" which break the format:
 "key.converter": "org.apache.kafka.connect.storage.StringConverter" ,
 "key.converter.schemas.enable" : "false",
 
@@ -151,9 +153,10 @@ CREATE TABLE tbl_movie_ratings2 WITH (KAFKA_TOPIC='json_movie_ratings', VALUE_FO
 ```
 ### verify the topic key and value:
 Ksqldb: print json_movie_ratings from beginning limit 5;
+![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-05.png)
 
 ~/confluent-5.5.0/bin/kafka-console-consumer --topic json_movie_ratings --from-beginning --bootstrap-server $kafkabrokers --property print.key=true --property key.separator=" : " --max-messages 5
-
+![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-06.png)
 
 ### Go to ADX and query table:
 movies_ratings_kafka_hdi
