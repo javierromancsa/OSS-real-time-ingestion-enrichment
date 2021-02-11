@@ -106,11 +106,11 @@ cp-schema-registry:
   url: "http://mytest02-cp-schema-registry:8081"
 ```
 ### Helm deploy kafka connector
-helm install kusto-sink myhelmcharts/adx-cp-kafka-connect/
+helm install kusto-sink-01 myhelmcharts/adx-cp-kafka-connect/
 ![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-02.png)
 
 ### start forwarding and check the plugin is available:
-sudo nohup kubectl port-forward svc/kusto-sink-cp-kafka-connect 8084:8083 &
+sudo nohup kubectl port-forward svc/kusto-sink-01-cp-kafka-connect 8084:8083 &
 
 ![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-03.png)
 
@@ -253,7 +253,7 @@ sudo nohup kubectl port-forward svc/kusto-sink-02-cp-kafka-connect 8085:8083 &
 		"value.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
 		"errors.deadletterqueue.topic.name": "dlq_movie_ratings",
 		"errors.log.include.messages": "true",
-		"kusto.tables.topics.mapping": "[{'topic': 'avro_movie_ratings','db': 'movies', 'table': 'movies_ratings','format': 'avro', 'mapping': 'movies_ratings_mapping'}]",
+		"kusto.tables.topics.mapping": "[{'topic': 'TBL_MOVIE_RATINGS','db': 'movies', 'table': 'movies_ratings','format': 'avro', 'mapping': 'movies_ratings_mapping'}]",
 		"aad.auth.authority": "",
 		"kusto.ingestion.url": "https://private-ingest-jrsadx.eastus2.kusto.windows.net",
 		"kusto.query.url": "https://private-jrsadx.eastus2.kusto.windows.net",
@@ -261,11 +261,18 @@ sudo nohup kubectl port-forward svc/kusto-sink-02-cp-kafka-connect 8085:8083 &
 		"aad.auth.appkey": "",
 		"kusto.sink.tempdir": "/var/tmp/",
 		"kusto.sink.flush_size": "10000000",
-		"topics": "avro_movie_ratings",
+		"topics": "TBL_MOVIE_RATINGS",
 		"tasks.max": 8
 	}
 
 }
 ```
 ### Execute the creation:
-curl -X POST http://localhost:8084/connectors -H "Content-Type: application/json" -d @simple-avro-kusto-sink-movies-01.json 
+curl -X POST http://localhost:8085/connectors -H "Content-Type: application/json" -d @simple-avro-kusto-sink-movies-01.json 
+
+### Go to ADX and query table:
+movies_ratings
+| where TITLE has "Once Upon a Time in the West"
+
+![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-07.png)
+
