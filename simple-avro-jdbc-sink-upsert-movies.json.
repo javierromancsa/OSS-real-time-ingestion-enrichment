@@ -1,0 +1,34 @@
+{
+
+	"name": "jdbc_sink_postgres_01",
+
+	"config": {
+
+		"connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+
+		"connection.url": "jdbc:postgresql://jrspostgres.postgres.database.azure.com:5432/postgres?sslmode=require",
+
+		"key.converter": "org.apache.kafka.connect.storage.StringConverter",
+		"value.converter": "io.confluent.connect.avro.AvroConverter",
+		"value.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
+		"key.converter.schemas.enable": "true",
+		"connection.user": "javier@jrspostgres",
+		"auto.create": "true",
+		"connection.password": "",
+		"auto.evolve": "true",
+		"topics": "avro_movie_ratings",
+		"insert.mode": "upsert",
+		"tasks.max": 1,
+		"pk.mode": "record_key",
+		"pk.fields": "MESSAGE_KEY",
+		"batch.size": 100,
+		"db.timezone": "UTC",
+		"table.name.format": "kafka_${topic}",
+		"errors.log.enable": "true",
+		"errors.log.include.messages": "true",
+		"transforms": "addSome",
+		"transforms.addSome.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+		"transforms.addSome.timestamp.field": "RECORD_TS"
+	}
+
+}
