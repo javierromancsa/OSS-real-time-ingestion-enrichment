@@ -18,7 +18,7 @@ Kafka Connect features include:
   https://docs.microsoft.com/en-us/azure/aks/private-clusters
 - Azure Bastion and Jumpbox or Azure VPN with P2S connection
   TBD
-- Postgressql in a cointaner/K8s(postgressql-in-aks.md)
+- [Postgresql in AKS](https://github.com/javierromancsa/OSS-real-time-ingestion-enrichment/blob/main/postgresql-aks.md)
 - Pre-define Automation deployment 
   TBD
 ## Deploy Confluent Kafka Connect:
