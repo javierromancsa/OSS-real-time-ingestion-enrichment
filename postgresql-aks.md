@@ -1,6 +1,8 @@
 ## Clone repo to deploy the postgresql server:
+```
 git clone https://github.com/javierromancsa/postgresql-aks.git
 cd postgresql-aks/
+```
 ## Edit the configmap yaml file to update the password and deploy all the yamls
 ```
 kubectl create -f postgres-configmap.yaml
@@ -21,5 +23,5 @@ psql -h 10.5.5.85 -U postgresadmin --password -p 5432 -d somedb -f movies.sql
 ![pics](https://github.com/javierromancsa/images/blob/main/postgresql-01.png)
 
 I use the following blogs as a reference:
-https://severalnines.com/database-blog/using-kubernetes-deploy-postgresql
-https://docs.microsoft.com/en-us/azure/aks/azure-disks-dynamic-pv
+- https://severalnines.com/database-blog/using-kubernetes-deploy-postgresql
+- https://docs.microsoft.com/en-us/azure/aks/azure-disks-dynamic-pv
