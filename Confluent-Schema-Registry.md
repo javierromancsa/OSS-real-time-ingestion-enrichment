@@ -80,7 +80,7 @@ helm install mytest03 myhelmcharts/cp-kafka-connnect/
         "name": "jdbc_source_postgres_01",
         "config": {
                 "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-                "connection.url": "jdbc:postgresql://postgres2:5432/postgresdb",
+                "connection.url": "jdbc:postgresql://postgres:5432/somedb",
                 "connection.user": "",
                 "connection.password": "",
                 "topic.prefix": "tblmovies01-",
@@ -94,7 +94,7 @@ helm install mytest03 myhelmcharts/cp-kafka-connnect/
 }
 ```
 ### Start the port-forwarding:
-sudo nohup kubectl port-forward svc/mytest01-cp-kafka-connect 803:8083 &
+sudo nohup kubectl port-forward svc/mytest03-cp-kafka-connect 803:8083 &
 
 ### Create the new connector
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d @myconnectors/simple-jdbc-source-bulk-movies-01.json | json_pp
@@ -114,7 +114,7 @@ More details in this link https://docs.confluent.io/platform/current/connect/use
 ### lets create a new connector with avro converter by adding the 4 lines of code to a copy of the previous connector config:
 ```
   "key.converter": "io.confluent.connect.avro.AvroConverter",
-  "key.converter.schemahttps://github.com/javierromancsa/images/blob/main/.registry.url": "http://mytest02-cp-schema-registry:8081",
+  "key.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
   "value.converter": "io.confluent.connect.avro.AvroConverter",
   "value.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
 ```
