@@ -85,7 +85,7 @@ sudo nohup kubectl port-forward svc/test01-cp-kafka-connect 803:8083 &
 ### Validate Connector config before creating:
 ```
 curl -X PUT http://localhost:803/connector-plugins/JdbcSourceConnector/config/validate -H "Content-Type: application/json" -d '{
-       "name":"jdbc_source_postgres_01",
+       "name":"jdbc_source_postgres01",
        "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
        "connection.url": "jdbc:postgresql://postgres:5432/somedb",
        "connection.user": "",
@@ -101,7 +101,7 @@ curl -X PUT http://localhost:803/connector-plugins/JdbcSourceConnector/config/va
 ### Create Connector for PostgresSQL using JDBCsourceconnector in bulk mode:
 ```
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d '{
-        "name": "jdbc_source_postgres_01",
+        "name": "jdbc_source_postgres01",
         "config": {
                 "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
                 "connection.url": "jdbc:postgresql://postgres:5432/somedb",
@@ -125,7 +125,7 @@ confluent-5.5.0/bin/kafka-console-consumer --value-deserializer org.apache.kafka
 ### Create Connector for PostgresSQL using JDBCsourceconnector with incrementing mode on 'id' column:
 ```
 curl -X POST http://localhost:803/connectors -H "Content-Type: application/json" -d '{
-        "name": "jdbc_source_postgres_02",
+        "name": "jdbc_source_postgres02",
         "config": {
                 "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
                 "connection.url": "jdbc:postgresql://postgres:5432/somedb",
