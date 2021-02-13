@@ -87,7 +87,7 @@ sudo nohup kubectl port-forward svc/test01-cp-kafka-connect 803:8083 &
 curl -X PUT http://localhost:803/connector-plugins/JdbcSourceConnector/config/validate -H "Content-Type: application/json" -d '{
        "name":"jdbc_source_postgres_01",
        "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-       "connection.url": "jdbc:postgresql://postgres2:5432/postgresdb",
+       "connection.url": "jdbc:postgresql://postgres:5432/somedb",
        "connection.user": "",
        "connection.password": "",
        "table.whitelist": "movies",
@@ -104,7 +104,7 @@ curl -X POST http://localhost:803/connectors -H "Content-Type: application/json"
         "name": "jdbc_source_postgres_01",
         "config": {
                 "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-                "connection.url": "jdbc:postgresql://postgres2:5432/postgresdb",
+                "connection.url": "jdbc:postgresql://postgres:5432/somedb",
                 "connection.user": "",
                 "connection.password": "",
                 "topic.prefix": "tblmovies01-",
@@ -128,7 +128,7 @@ curl -X POST http://localhost:803/connectors -H "Content-Type: application/json"
         "name": "jdbc_source_postgres_02",
         "config": {
                 "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-                "connection.url": "jdbc:postgresql://postgres2:5432/postgresdb",
+                "connection.url": "jdbc:postgresql://postgres:5432/somedb",
                 "connection.user": "",
                 "connection.password": "",
                 "topic.prefix": "newtblmovies01-",
@@ -147,7 +147,7 @@ curl -X POST http://localhost:803/connectors -H "Content-Type: application/json"
 
 ### insert records to the movies table
 ```
-psql -h 10.5.4.155 -U postgresadmin --password -p 5432 -d postgresdb
+psql -h 10.5.5.85 -U postgresadmin --password -p 5432 -d somedb
 =# INSERT INTO movies(id,title,release_year,unknown_1,country,unknown_2,genres,actors,director,composers,screenwriters,cinematographers,production_companies) VALUES (921,'Diego Book',2020,16,'Puerto Rico',18,'Western','Sambrell','Leone','Morricone','Bertolucci','Colli','Paramount Pictures');
 
 =# INSERT INTO movies(id,title,release_year,unknown_1,country,unknown_2,genres,actors,director,composers,screenwriters,cinematographers,production_companies) VALUES (922,'Javier Book',2020,16,'Puerto Rico',18,'Western','Sambrell','Leone','Morricone','Bertolucci','Colli','Paramount Pictures');
