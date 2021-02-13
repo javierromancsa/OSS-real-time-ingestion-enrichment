@@ -26,5 +26,5 @@ For real-time stream processing and streaming ETL we are going to use confluent 
 - [Confluent KsqlDB](Confluent-KsqlDB.md)
 - [Confluent KsqlDB in Action](Confluent-KsqlDB-Data-Enrichment.md)
 - [Azure Data Explorer Integration/Downstream](adx-kusto-sink-connector.md)
-- [Azure Functions and KEDA](azfunctions-actions-alerts-downstream.md)
 - [Operational Store Integration and Downstreams](operationalstores-downstreams.md)
+- [Azure Functions and KEDA](azfunctions-actions-alerts-downstream.md)
