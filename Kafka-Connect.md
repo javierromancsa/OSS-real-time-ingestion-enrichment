@@ -11,8 +11,11 @@ Kafka Connect features include:
 
 ## Getting Ready to use Kafka Connect:
 - Deploying a Kafka Cluster
-  - HDInsight inside your own Vnet https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-plan-virtual-network-deployment 
+  - HDInsight inside your own Vnet https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-plan-virtual-network-deployment
+  - kafka HDInsight https://github.com/Azure/azure-quickstart-templates/tree/master/101-hdinsight-kafka
   - Kafka in AKS with Strimzi https://dev.to/azure/kafka-on-kubernetes-the-strimzi-way-part-1-57g7
+  - Azure Event Hub - https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub
+    - Note this service doesn't support kafka stream and it has challenges to do kafka Connect details [link](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-kafka-connect-tutorial)
 - Deploying your AKS Cluster into your Vnet and Private zone 
   https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni
   https://docs.microsoft.com/en-us/azure/aks/private-clusters
@@ -21,7 +24,7 @@ Kafka Connect features include:
 - [Postgresql in AKS](https://github.com/javierromancsa/OSS-real-time-ingestion-enrichment/blob/main/postgresql-aks.md)
 - Pre-define Automation deployment 
   TBD
-## Deploy Confluent Kafka Connect:
+## Deploy Community Confluent Kafka Connect:
 
 ### copy source charts from Confluent
 ```
@@ -32,6 +35,9 @@ cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ myhelmcharts/
 ```
 ### Edit the replica count to match the numbers of tables/files are going to be source/sink or the number of partitions in the topic:
 `replicaCount: 8`
+
+### Edit the kafka connect image:
+'cp-kafka-connect-base`
 
 ### Edit the kafka connect properties on the section settings for the worker:
 ```
