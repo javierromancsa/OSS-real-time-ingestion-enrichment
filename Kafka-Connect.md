@@ -12,13 +12,14 @@ Kafka Connect features include:
 ## Getting Ready to use Kafka Connect:
 - Deploying a Kafka Cluster
   - HDInsight inside your own Vnet https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-plan-virtual-network-deployment
-  - kafka HDInsight https://github.com/Azure/azure-quickstart-templates/tree/master/101-hdinsight-kafka
+    - kafka HDInsight https://github.com/Azure/azure-quickstart-templates/tree/master/101-hdinsight-kafka
   - Kafka in AKS with Strimzi https://dev.to/azure/kafka-on-kubernetes-the-strimzi-way-part-1-57g7
   - Azure Event Hub - https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub
     - Note this service doesn't support kafka stream and it has challenges to do kafka Connect details [link](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-kafka-connect-tutorial)
 - Deploying your AKS Cluster into your Vnet and Private zone 
   https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni
   https://docs.microsoft.com/en-us/azure/aks/private-clusters
+  https://azure.microsoft.com/en-us/resources/templates/201-private-aks-cluster/
 - Azure Bastion and Jumpbox or Azure VPN with P2S connection
   TBD
 - [Postgresql in AKS](https://github.com/javierromancsa/OSS-real-time-ingestion-enrichment/blob/main/postgresql-aks.md)
