@@ -23,8 +23,7 @@ Kafka Connect features include:
 - Azure Bastion and Jumpbox or Azure VPN with P2S connection
   TBD
 - [Postgresql in AKS](https://github.com/javierromancsa/OSS-real-time-ingestion-enrichment/blob/main/postgresql-aks.md)
-- Pre-define Automation deployment 
-  TBD
+- Pre-define Automation deployment for HDinsight kafka, AKS private cluster, azure bastion and linux VM in this repo : https://github.com/javierromancsa/oss-demo-azure-services
 ## Deploy Community Confluent Kafka Connect:
 
 ### copy source charts from Confluent
