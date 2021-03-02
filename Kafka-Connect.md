@@ -10,6 +10,7 @@ Kafka Connect features include:
 - Streaming/batch integration - leveraging Kafka's existing capabilities, Kafka Connect is an ideal solution for bridging streaming and batch data systems
 
 ## Getting Ready to use Kafka Connect:
+- Pre-define Automation deployment for HDinsight kafka, AKS private cluster, azure bastion and linux VM in this repo : https://github.com/javierromancsa/oss-demo-azure-services
 - Deploying a Kafka Cluster
   - HDInsight inside your own Vnet https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-plan-virtual-network-deployment
     - kafka HDInsight https://github.com/Azure/azure-quickstart-templates/tree/master/101-hdinsight-kafka
@@ -23,7 +24,11 @@ Kafka Connect features include:
 - Azure Bastion and Jumpbox or Azure VPN with P2S connection
   TBD
 - [Postgresql in AKS](https://github.com/javierromancsa/OSS-real-time-ingestion-enrichment/blob/main/postgresql-aks.md)
-- Pre-define Automation deployment for HDinsight kafka, AKS private cluster, azure bastion and linux VM in this repo : https://github.com/javierromancsa/oss-demo-azure-services
+- If you don't have helm use this link https://helm.sh/docs/intro/install/ 
+- If you don't have kubectl use this link https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-using-native-package-management
+- If you don't have azure CLI use this link https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
+- If you don't know how to get you AKS credential use this link https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
+
 ## Deploy Community Confluent Kafka Connect:
 
 ### copy source charts from Confluent
@@ -85,8 +90,8 @@ kubectl logs "insert-pod-name"|tail
 **Note.**
 - If you don't have helm use this link https://helm.sh/docs/intro/install/ 
 - If you dont' have kubectl use this link https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-using-native-package-management
-- If don't have azure CLI use this link https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
-- If don't know how to get you AKS credential use this link https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
+- If you don't have azure CLI use this link https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
+- If you don't know how to get you AKS credential use this link https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
 
 ### Getting confluent community and use kafka binaries: http://packages.confluent.io/archive/5.5/
 ```
