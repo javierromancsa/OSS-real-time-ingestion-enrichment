@@ -33,11 +33,12 @@ mkdir myhelmcharts/
 cd myhelmcharts
 cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ .
 ```
-### Edit the replica count to match the numbers of tables/files are going to be source/sink or the number of partitions in the topic:
+### Edit the replica count to match the numbers of tables/files you're going to source/sink or the number of partitions in the topic:
 `replicaCount: 8`
 
 ### Edit the kafka connect image:
-`cp-kafka-connect-base`
+`image: confluentinc/cp-kafka-connect-base
+imageTag: 5.5.0`
 
 ### Edit the kafka connect properties on the section settings for the worker:
 ```
