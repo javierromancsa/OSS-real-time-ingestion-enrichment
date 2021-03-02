@@ -73,7 +73,8 @@ kafka.bootstrapServers = "wn0-jrs02k.qz1stakpznlepcjn2bzi2treqb.cx.internal.clou
 ```
 export clusterName=
 export password=
-export KAFKABROKERS=$(curl -sS -u admin:$password -G https://$clusterName-int.azurehdinsight.net/api/v1/clusters/$clusterName/services/KAFKA/components/KAFKA_BROKER | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")' | cut -d',' -f1,2);
+export KAFKABROKERS=$(curl -sS -u admin:$password -G https://$clusterName-int.azurehdinsight.net/api/v1/clusters/$clusterName/services/KAFKA/components/KAFKA_BROKER | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")');
+echo $KAFKABROKERS
 ```
 ### Deploying the helm and checking if is running:
 ```
