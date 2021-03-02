@@ -37,8 +37,10 @@ cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ .
 `replicaCount: 8`
 
 ### Edit the kafka connect image:
-`image: confluentinc/cp-kafka-connect-base
-imageTag: 5.5.0`
+```
+image: confluentinc/cp-kafka-connect-base
+imageTag: 5.5.0
+```
 
 ### Edit the kafka connect properties on the section settings for the worker:
 ```
