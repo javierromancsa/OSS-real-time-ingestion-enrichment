@@ -83,11 +83,10 @@ Kubectl get pods
 kubectl logs "insert-pod-name"|tail
 ```
 **Note.**
-
-If you don't have helm use this link https://helm.sh/docs/intro/install/ 
-If you dont' have kubectl use this link https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-using-native-package-management
-If don't have azure CLI use this link https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
-If don't know how to get you AKS credential use this link https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
+- If you don't have helm use this link https://helm.sh/docs/intro/install/ 
+- If you dont' have kubectl use this link https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-using-native-package-management
+- If don't have azure CLI use this link https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
+- If don't know how to get you AKS credential use this link https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
 
 ### Getting confluent community and use kafka binaries: http://packages.confluent.io/archive/5.5/
 ```
