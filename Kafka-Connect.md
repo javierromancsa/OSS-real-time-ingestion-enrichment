@@ -45,15 +45,15 @@ imageTag: 5.5.0
 ### Edit the kafka connect properties on the section settings for the worker:
 ```
 configurationOverrides:
-"plugin.path": "/usr/share/java,/usr/share/confluent-hub-components"
-"key.converter": "org.apache.kafka.connect.json.JsonConverter"
-"value.converter": "org.apache.kafka.connect.json.JsonConverter"
-"key.converter.schemas.enable": "false"
-"value.converter.schemas.enable": "false"
-"config.storage.replication.factor": "3"
-"offset.storage.replication.factor": "3"
-"status.storage.replication.factor": "3"
-"connector.client.config.override.policy" : "All'
+  "plugin.path": "/usr/share/java,/usr/share/confluent-hub-components"
+  "key.converter": "org.apache.kafka.connect.json.JsonConverter"
+  "value.converter": "org.apache.kafka.connect.json.JsonConverter"
+  "key.converter.schemas.enable": "false"
+  "value.converter.schemas.enable": "false"
+  "config.storage.replication.factor": "3"
+  "offset.storage.replication.factor": "3"
+  "status.storage.replication.factor": "3"
+  "connector.client.config.override.policy": "All"
 ```
 ### For further adjusting the settings of the values.YAML on the helm config use this link:
 https://github.com/confluentinc/cp-helm-charts/tree/master/charts/cp-kafka-connect#kafka-connect-deployment
