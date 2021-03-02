@@ -80,8 +80,9 @@ echo $KAFKABROKERS
 ```
 helm install test01 myhelmcharts/cp-kafka-connect/
 Kubectl get pods
-kubectl logs test01-cp-kafka-connect-5f8cc6fd-2q292|tail
+kubectl logs "insert-pod-name"|tail
 ```
+Note.If you need helm use this link https://helm.sh/docs/intro/install/
 ### Getting confluent community and use kafka binaries: http://packages.confluent.io/archive/5.5/
 ```
 wget http://packages.confluent.io/archive/5.5/confluent-community-5.5.0-2.12.tar.gz
