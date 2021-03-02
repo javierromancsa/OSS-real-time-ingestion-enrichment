@@ -82,7 +82,9 @@ helm install test01 myhelmcharts/cp-kafka-connect/
 Kubectl get pods
 kubectl logs "insert-pod-name"|tail
 ```
-Note.If you need helm use this link https://helm.sh/docs/intro/install/
+Note.If you need helm use this link https://helm.sh/docs/intro/install/ 
+If you need kubectl use this link https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-using-native-package-management
+
 ### Getting confluent community and use kafka binaries: http://packages.confluent.io/archive/5.5/
 ```
 wget http://packages.confluent.io/archive/5.5/confluent-community-5.5.0-2.12.tar.gz
