@@ -31,7 +31,7 @@ Kafka Connect features include:
 git clone https://github.com/confluentinc/cp-helm-charts.git
 mkdir myhelmcharts/
 cd myhelmcharts
-cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ myhelmcharts/
+cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ .
 ```
 ### Edit the replica count to match the numbers of tables/files are going to be source/sink or the number of partitions in the topic:
 `replicaCount: 8`
