@@ -43,7 +43,7 @@ cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ .
 
 ### Edit the kafka connect image:
 ```
-image: confluentinc/cp-kafka-connect-base
+image: confluentinc/cp-kafka-connect
 imageTag: 5.5.0
 ```
 
