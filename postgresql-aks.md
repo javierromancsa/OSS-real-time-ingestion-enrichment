@@ -16,6 +16,11 @@ kubectl get pvc
 kubectl get pods
 kubectl get services
 ```
+**Note** If you don't see a private IP on the services output for the postgres deployment them you have to give network contributer role to AKS SP
+![pics](https://github.com/javierromancsa/images/blob/main/postgresql-04.png)
+
+https://docs.microsoft.com/en-us/azure/aks/internal-lb#use-private-networks
+
 ## Using the services output copy the External-IP address and use it for psql in order to connect to the postgresql
 ```
 psql -h 10.5.5.85 -U postgresadmin --password -p 5432 -d somedb -f movies.sql
