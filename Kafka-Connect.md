@@ -176,7 +176,7 @@ curl -X POST http://localhost:803/connectors -H "Content-Type: application/json"
 ### Check the topics
 `confluent-5.5.0/bin/kafka-console-consumer --topic newtblmovies01-movies --bootstrap-server $kafkabrokers`
 
-### insert records to the movies table
+### In a different shell connect to the DB and insert new records to the movies table
 ```
 psql -h 10.5.5.85 -U postgresadmin --password -p 5432 -d somedb
 =# INSERT INTO movies(id,title,release_year,unknown_1,country,unknown_2,genres,actors,director,composers,screenwriters,cinematographers,production_companies) VALUES (921,'Diego Book',2020,16,'Puerto Rico',18,'Western','Sambrell','Leone','Morricone','Bertolucci','Colli','Paramount Pictures');
