@@ -145,7 +145,7 @@ curl -X POST http://localhost:803/connectors -H "Content-Type: application/json"
 ### Check the topic
 ```
 confluent-5.5.0/bin/kafka-console-consumer --topic tblmovies01-movies --bootstrap-server $kafkabrokers
-confluent-5.5.0/bin/kafka-console-consumer --value-deserializer org.apache.kafka.common.serialization.StringDeserializer --key-deserializer org.apache.kafka.common.serialization.StringDeserializer --topic tblmovies01-movies --bootstrap-server $kafkabrokers
+confluent-5.5.0/bin/kafka-console-consumer --property print.key=true --property print.timestamp=true --property key.separator=" : " --property timestamp.separator=" : " --topic tblmovies01-movies --bootstrap-server $kafkabrokers
 ```
 
 **Note** If you don't have auto.create.topics.enable them you have to create the topic : [link](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-auto-create-topics)
