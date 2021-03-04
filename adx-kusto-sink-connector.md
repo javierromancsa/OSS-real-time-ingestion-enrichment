@@ -22,7 +22,9 @@ Now let's go to our Azure Data Explorer and create the tables:
 ```
 // Create tables
 .create table ['movies_ratings_kafka_hdi']  ( ['TITLE']:string, ['AVG_RATINGS']:decimal , ['SUM_RATING']:decimal  )
+
 .create table ['movies_ratings']  ( ['TITLE']:string, ['AVG_RATINGS']:decimal , ['SUM_RATING']:decimal  )
+
 // Create mapping
 .create table ['movies_ratings_kafka_hdi'] ingestion json mapping 'movies_ratings_kafka_hdi_mapping' '[{"column":"TITLE","path":"$.TITLE","datatype":"string"},{"column":"AVG_RATINGS","path":"$.AVG_RATINGS","datatype":"decimal"},{"column":"SUM_RATING","path":"$.SUM_RATING","datatype":"decimal"} ]'
 
@@ -30,6 +32,7 @@ Now let's go to our Azure Data Explorer and create the tables:
 
 // Batching policy override of defaults, to consume faster
 .alter table movies_ratings policy ingestionbatching @'{"MaximumBatchingTimeSpan":"00:00:05", "MaximumNumberOfItems": 20, "MaximumRawDataSizeMB": 300}'
+
 .alter table movies_ratings_kafka_hdi policy ingestionbatching @'{"MaximumBatchingTimeSpan":"00:00:05", "MaximumNumberOfItems": 20, "MaximumRawDataSizeMB": 300}'
 ```
 The movies_ratings_kafka_hdi will be for a json topic without Confluent Schema Registry and the movies_ratings will be for a avro topic with with Confluent Schema Registry
