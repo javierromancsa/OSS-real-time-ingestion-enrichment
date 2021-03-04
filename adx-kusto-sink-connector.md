@@ -7,13 +7,17 @@ A fast and highly scalable data exploration service for log and telemetry data. 
 - Supports analysis of high volumes of heterogeneous data (structured and unstructured).
 - Provides the ability to build and deploy exactly what you need by combining with other services to supply an encompassing, powerful, and interactive data analytics solution.
 
-## Deploying Azure Explorer and Creating DB with target tables
-Using the following template https://azure.microsoft.com/en-us/resources/templates/101-kusto-vnet/
-And using this parameter file as example or "as is" for testing purposes https://raw.githubusercontent.com/javierromancsa/OSS-real-time-ingestion-enrichment/main/azuredeploy.parameters.json
+## Deploying Azure Explorer cluster and Creating DB with target tables
+Using the following repository you can deploy the cluster and a dababase in your own Vnet : https://github.com/javierromancsa/oss-demo-azure-services
+For example below is posible way to deploy this using azure CLI
 ```
-az group create --name <resource-group-name> --location <resource-group-location> #use this command when you need to create a new resource group for your deployment
-az group deployment create --resource-group <my-resource-group> --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-kusto-vnet/azuredeploy.json --parameters https://raw.githubusercontent.com/javierromancsa/OSS-real-time-ingestion-enrichment/main/azuredeploy.parameters.json
+az deployment group create \
+  --name adxDeployment \
+  --resource-group oss-demo \
+  --template-uri https://raw.githubusercontent.com/javierromancsa/oss-demo-azure-services/main/adx-azuredeploy.json \
+  --parameters virtualNetworkName='aks-23g4wsrucx4q4Vnet' subnetName='adx-subnet' skuName='Standard_D11_v2' databases_kustodb_name='movies' subnetPrefix='10.1.3.0/24'
 ```
+**Note** If you need futher details about this visit this [link](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-cli?toc=%2Fcli%2Fazure%2Ftoc.json&bc=%2Fcli%2Fazure%2Fbreadcrumb%2Ftoc.json)
 Now let's go to our Azure Data Explorer and create the tables:
 ```
 // Create tables
