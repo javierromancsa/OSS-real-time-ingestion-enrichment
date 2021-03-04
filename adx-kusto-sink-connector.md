@@ -38,7 +38,7 @@ Now let's go to our Azure Data Explorer and create the tables:
 The movies_ratings_kafka_hdi will be for a json topic without Confluent Schema Registry and the movies_ratings will be for a avro topic with with Confluent Schema Registry
 
 ### Now you have to create a App registration in AAD and create a Secret for it. This Service Principal we just created will need the right access to these to tables for ingetisting.
-Using this [link](https://docs.microsoft.com/en-us/azure/data-explorer/provision-azure-ad-app) obtain/copy the appId and the secret key string
+Using this [link](https://docs.microsoft.com/en-us/azure/data-explorer/provision-azure-ad-app) to obtain/copy the appId and the secret key string
 ```
 .add database movies ingestors ('aadapp="yourappId"') 'Kafka Azure AD App'
 ```
