@@ -69,7 +69,7 @@ az acr build --registry jrsacr --image myadx-kafka-connect:v1 -f custom-build-im
 cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ myhelmcharts/adx-cp-kafka-connect/
 ![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-01.png)
 
-### Edit the replica count based on the partition in the topic:
+### Edit the replica count based on the topic partition in the file values.yaml:
 ```
 replicaCount: 8
 ```
