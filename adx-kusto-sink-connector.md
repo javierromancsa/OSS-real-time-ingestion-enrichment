@@ -51,10 +51,10 @@ wget https://github.com/Azure/kafka-sink-azure-kusto/releases/download/v2.0.0/ka
 
 ### Create a dockerfile for a custom image:
 myimages/adx-kafka-connect/custom-build-image.dockerfile file below:
-
+```
 FROM confluentinc/cp-kafka-connect:5.5.0
 COPY kafka-sink-azure-kusto-2.0.0-jar-with-dependencies.jar /usr/share/java
-
+```
 ### Create an image/container
 ```
 cd ~/myimages/adx-kafka-connect/
