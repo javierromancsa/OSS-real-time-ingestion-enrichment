@@ -47,17 +47,22 @@ Using this [link](https://docs.microsoft.com/en-us/azure/data-explorer/provision
 ## Deploying the Kafka Connector:
 
 ### Download the azure data explorer kafka connector
+```
+mkdir -p myimages/adx-kafka-connect
+cd myimages/adx-kafka-connect/
 wget https://github.com/Azure/kafka-sink-azure-kusto/releases/download/v2.0.0/kafka-sink-azure-kusto-2.0.0-jar-with-dependencies.jar
-
+```
 ### Create a dockerfile for a custom image:
-myimages/adx-kafka-connect/custom-build-image.dockerfile file below:
+custom-build-image.dockerfile file below:
 ```
 FROM confluentinc/cp-kafka-connect:5.5.0
 COPY kafka-sink-azure-kusto-2.0.0-jar-with-dependencies.jar /usr/share/java
 ```
 ### Create an image/container
+**Note**: You need to attach the azure container registry to this aks cluster using this [link](https://docs.microsoft.com/en-us/azure/aks/cluster-container-registry-integration#configure-acr-integration-for-existing-aks-clusters)
 ```
 cd ~/myimages/adx-kafka-connect/
+az login
 az acr build --registry jrsacr --image myadx-kafka-connect:v1 -f custom-build-image.dockerfile .
 ```
 ### Create the Helm for ADX kafka connector:
