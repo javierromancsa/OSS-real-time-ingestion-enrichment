@@ -147,7 +147,7 @@ curl -X GET http://localhost:8084/connector-plugins/ |grep com.microsoft
                 "connector.class": "com.microsoft.azure.kusto.kafka.connect.sink.KustoSinkConnector",
                 "kusto.sink.flush_interval_ms": "10000",
                 "errors.log.enable" : "true",
-                "kusto.tables.topics_mapping": "[{'topic': 'json_movie_ratings','db': 'movies', 'table':'movies_ratings_kafka_hdi','format': 'json', 'mapping':'movies_ratings_kafka_hdi_mapping'}]",
+		"kusto.tables.topics.mapping": "[{'topic': 'json_movie_ratings','db': 'movies', 'table': 'movies_ratings_kafka_hdi','format': 'json','mapping':'movies_ratings_kafka_hdi_mapping'}]",
                 "aad.auth.authority": "",
                 "kusto.ingestion.url":"https://private-ingest-jrsadx.eastus2.kusto.windows.net",
                 "kusto.query.url":"https://private-jrsadx.eastus2.kusto.windows.net",
