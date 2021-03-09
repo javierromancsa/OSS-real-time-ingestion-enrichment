@@ -121,13 +121,20 @@ export KAFKABROKERS=$(curl -sS -u admin:$password -G https://$clusterName.azureh
 cp-schema-registry:
   url: "http://mytest02-cp-schema-registry:8081"
 ```
+**Note** If you don't have a schema registry running and you want to work with schema use this section [Confluent Schema Registry](https://github.com/javierromancsa/OSS-real-time-ingestion-enrichment/blob/main/Confluent-Schema-Registry.md)
+Other wise you can ignore this option.
+
 ### Helm deploy kafka connector
+```
 helm install kusto-sink-01 myhelmcharts/adx-cp-kafka-connect/
+```
 ![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-02.png)
 
 ### start forwarding and check the plugin is available:
+```
 sudo nohup kubectl port-forward svc/kusto-sink-01-cp-kafka-connect 8084:8083 &
-
+curl -X GET http://localhost:8084/connector-plugins/ |grep com.microsoft
+```
 ![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-03.png)
 
 
@@ -152,6 +159,15 @@ sudo nohup kubectl port-forward svc/kusto-sink-01-cp-kafka-connect 8084:8083 &
                 "tasks.max": 8
                 }
         }
+```
+**Note** If you haven't done the 2 KsqlDB modules [Confluent KsqlDB](https://github.com/javierromancsa/OSS-real-time-ingestion-enrichment/blob/main/Confluent-KsqlDB.md)  [Confluent KsqlDB Enrichment](https://github.com/javierromancsa/OSS-real-time-ingestion-enrichment/blob/main/Confluent-KsqlDB-Data-Enrichment.md) , 
+use the following payload to produce messages manually using kafka-console-producer [json payload](https://raw.githubusercontent.com/javierromancsa/OSS-real-time-ingestion-enrichment/main/json_movie_ratings.json) . 
+For example below is example process:
+```
+confluent-5.5.0/bin/kafka-topics --create --topic json_movie_ratings --partitions 8 --replication-factor 3  --bootstrap-server $kafkabrokers
+wget https://raw.githubusercontent.com/javierromancsa/OSS-real-time-ingestion-enrichment/main/json_movie_ratings.json
+head -n1 json_movie_ratings.json | confluent-5.5.0/bin/kafka-console-producer --topic json_movie_ratings --bootstrap-server $kafkabrokers
+confluent-5.5.0/bin/kafka-console-consumer --topic json_movie_ratings --bootstrap-server $kafkabrokers --from-beginning
 ```
 ### Execute the creation:
 curl -X POST http://localhost:8084/connectors -H "Content-Type: application/json" -d @simple-json-kusto-sink-movies-01.json 
