@@ -174,7 +174,7 @@ curl -X POST http://localhost:8084/connectors -H "Content-Type: application/json
 
 ![pic](https://github.com/javierromancsa/images/blob/main/adx-kusto-sink-04.png)
 
-### Edit config to enable log and dead letter queues
+### If you completed earlier modules your connector should have crash due to a Key value for one of the records. Never the less it's a  good time to enable logging behavior and dead letter queues to the config.  
 ```
 "errors.log.enable" : "true",
 "behavior.on.error" :"log",
@@ -186,7 +186,12 @@ curl -X POST http://localhost:8084/connectors -H "Content-Type: application/json
 "key.converter": "org.apache.kafka.connect.storage.StringConverter" ,
 "key.converter.schemas.enable" : "false",
 ```
-## In KsqlDB we need to Create the new table with the json topic so ADX can Sink:
+
+### We should delete the connector and redeploy with these new changes
+```
+curl -X DELETE http://localhost:8084/connectors/KustoSinkConnector_01/
+```
+## Now in KsqlDB we need to create the new ktable with the json topic so ADX can Sink:
 ```
 CREATE TABLE tbl_movie_ratings2 WITH (KAFKA_TOPIC='json_movie_ratings', VALUE_FORMAT='JSON') AS SELECT m.title, AVG(r.rating) AS avg_ratings, SUM(r.rating) AS sum_rating FROM ratings r LEFT OUTER JOIN tbl_movies m ON m.movie_id = r.movie_id GROUP BY m.title ;
 ```
@@ -204,7 +209,7 @@ movies_ratings_kafka_hdi
 movies_ratings_kafka_hdi
 | count 
 
-## Now let's work on the other table with the avro converter and the schema registry:
+## For this section you must have done earlier modules for Schema Registry and both KsqlDB modules. Since we are going to use avro messages and the schema registry:
 
 ### Create the Helm for ADX kafka connector:
 cp -R ~/cp-helm-charts/charts/cp-kafka-connect/ myhelmcharts/adx-cp-kafka-connect/
@@ -285,7 +290,7 @@ sudo nohup kubectl port-forward svc/kusto-sink-02-cp-kafka-connect 8085:8083 &
 		"value.converter.schema.registry.url": "http://mytest02-cp-schema-registry:8081",
 		"errors.deadletterqueue.topic.name": "dlq_movie_ratings",
 		"errors.log.include.messages": "true",
-		"kusto.tables.topics.mapping": "[{'topic': 'TBL_MOVIE_RATINGS','db': 'movies', 'table': 'movies_ratings','format': 'avro', 'mapping': 'movies_ratings_mapping'}]",
+		"kusto.tables.topics.mapping": "[{'topic': 'TBL_MOVIE_RATINGS','db': 'movies','table': 'movies_ratings','format': 'avro','mapping': 'movies_ratings_mapping'}]",
 		"aad.auth.authority": "",
 		"kusto.ingestion.url": "https://private-ingest-jrsadx.eastus2.kusto.windows.net",
 		"kusto.query.url": "https://private-jrsadx.eastus2.kusto.windows.net",
